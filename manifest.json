@@ -1,0 +1,18 @@
+{
+	"manifest_version": 2,
+	"name": "music.zacharyseguin.ca extractor",
+	"version": "1.0",
+
+	"description": "Extracts artist, album and title",
+
+	"icons": {
+		"48": "icons/border-48.png"
+	},
+
+	"content_scripts": [
+		{
+			"matches": ["*://music.zacharyseguin.ca/*"],
+			"js": ["extractor.js"]
+		}
+	]
+}
