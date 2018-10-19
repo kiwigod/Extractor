@@ -38,5 +38,5 @@ function compare_and_update() {
         raw = E_title.innerText;
         var newTitle = raw.slice(0, raw.indexOf('\n')).trim();
         if (metadata.title != newTitle) { metadata.title = newTitle; }
-	dump();
+	// dump();
 }
