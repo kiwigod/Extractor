@@ -6,9 +6,23 @@ var metadata = {
 	album: '',
 	title: ''
 };
-
 var E_artist_album = document.getElementsByClassName("artist")[0];
 var E_title = document.getElementsByClassName("title")[0];
+
+window.onload = function() {
+	var E_main = document.getElementsByClassName("main")[1];
+	var config = { attributes: true, childList:true, subtree: true, characterData: true };
+
+	var callback = function(mutationsList, observer) {
+        	for (var mutation of mutationsList) {
+                	setTimeout(compare_and_update, 1500);
+        	        break;
+	        }
+	};
+	var observer = new MutationObserver(callback);
+	observer.observe(E_main, config);
+}
+
 
 function dump() {
 	console.log('artist: ' + artist);
@@ -28,18 +42,3 @@ function compare_and_update() {
         if (title != newTitle) { title = newTitle; }
 	dump();
 }
-
-
-var E_main = document.getElementsByClassName("main")[1];
-var config = { attributes: true, childList:true, subtree: true };
-
-var callback = function(mutationsList, observer) {
-	for (var mutation of mutationsList) {
-		setTimeout(compare_and_update, 1500);
-		break;
-	}
-};
-
-var observer = new MutationObserver(callback);
-observer.observe(E_main, config);
-
