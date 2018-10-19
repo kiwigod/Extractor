@@ -9,6 +9,14 @@
 		"48": "icons/border-48.png"
 	},
 
+	"permissions": [
+		"downloads"
+	],
+
+	"background": {
+		"scripts": ["background.js"]
+	},
+
 	"content_scripts": [
 		{
 			"matches": ["*://music.zacharyseguin.ca/*"],

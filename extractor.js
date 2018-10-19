@@ -1,6 +1,3 @@
-var artist = '';
-var album = '';
-var title = '';
 var metadata = {
 	artist: '',
 	album: '',
@@ -15,7 +12,8 @@ window.onload = function() {
 
 	var callback = function(mutationsList, observer) {
         	for (var mutation of mutationsList) {
-                	setTimeout(compare_and_update, 1500);
+			compare_and_update();
+			browser.runtime.sendMessage(metadata);
         	        break;
 	        }
 	};
@@ -25,20 +23,20 @@ window.onload = function() {
 
 
 function dump() {
-	console.log('artist: ' + artist);
-        console.log('album: ' + album);
-        console.log('title: ' + title);
+	console.log('artist: ' + metadata.artist);
+        console.log('album: ' + metadata.album);
+        console.log('title: ' + metadata.title);
 }
 
 function compare_and_update() {
 	var raw = E_artist_album.innerText;
         var iSep = raw.indexOf('—');
-        var newArtist = raw.slice(0, iSep);
-        var newAlbum = raw.slice(iSep + 1);
-        if (artist != newArtist) { artist = newArtist; }
-        if (album != newAlbum) { album = newAlbum; }
+        var newArtist = raw.slice(0, iSep).trim();
+        var newAlbum = raw.slice(iSep + 1).trim();
+        if (metadata.artist != newArtist) { metadata.artist = newArtist; }
+        if (metadata.album != newAlbum) { metadata.album = newAlbum; }
         raw = E_title.innerText;
-        var newTitle = raw.slice(0, raw.indexOf('\n'));
-        if (title != newTitle) { title = newTitle; }
+        var newTitle = raw.slice(0, raw.indexOf('\n')).trim();
+        if (metadata.title != newTitle) { metadata.title = newTitle; }
 	dump();
 }
